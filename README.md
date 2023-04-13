@@ -1,33 +1,77 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Installation
 
-## About Laravel
+Please check the official laravel installation guide for server requirements before you start. [Official Documentation](https://laravel.com/docs/10.x/installation)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+First install docker for youe machine  [Docker](https://www.docker.com/) 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Clone the repository
 
-## Learning Laravel
+```
+git clone https://github.com/devmjsaini/laravel-test.git
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```
+Create .env file 
+```
+cp .env.example .env
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```
+docker run -v $(pwd):/app composer install
+cd ./laravel-test
+```
+
+Run docker containers
+
+```
+docker-compose up -d --build
+```
+***Note*** : 
+- if permission error run ``` sudo docker-compose up -d --build ``` 
+- for node version 16 use ``` docker run -it --rm -v "$PWD":/usr/src/app -w /usr/src/app node:16 npm run build ``` it will install node 16 version and generate build
+
+### Laravel commands
+- if getting key error run the following command
+
+```
+docker-compose exec app composer install
+```
+```
+docker-compose exec app php artisan key:generate
+
+```
+- Run migratation for database
+
+```
+docker-compose exec app php artisan migrate
+```
+
+```
+docker-compose exec app php artisan serve
+
+```
+
+
+Clear Cache
+```
+docker-compose exec app php view:clear
+docker-compose exec app php artisan view:clear
+docker-compose exec app php artisan cache:clear
+
+```
+
+Optimize the cache
+```
+docker-compose exec app php artisan optimize:clear
+```
+
+
+***Note***: 
+- If want to run commands inside container first run ``` docker exec -it <container_name> /bin/sh ``` and then use commands for eg: run ``` docker exec -it app /bin/sh ``` you can use direct commands inside the container ``` php astisan  composer install ``` and run ``` exit ``` to exit the particular container
+
+
 
 ## Laravel Sponsors
 
@@ -64,3 +108,4 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
