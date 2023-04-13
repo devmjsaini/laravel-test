@@ -52,7 +52,13 @@ docker-compose exec app php artisan migrate
 docker-compose exec app php artisan serve
 
 ```
+More NPM commands
+```
+docker run -it --rm -v "$PWD":/usr/src/app -w /usr/src/app node:16 npm run install
+docker run -it --rm -v "$PWD":/usr/src/app -w /usr/src/app node:16 npm run dev
+docker run -it --rm -v "$PWD":/usr/src/app -w /usr/src/app node:16 npm run serve
 
+```
 
 Clear Cache
 ```
